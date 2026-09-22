@@ -1,0 +1,43 @@
+[build-system]
+requires = ["hatchling>=1.27"]
+build-backend = "hatchling.build"
+
+[project]
+name = "jev-mcp"
+version = "0.1.0"
+description = "MCP server exposing TypeSafe Jev (System One) as one typed 'evaluate' tool over streamable HTTP"
+readme = "README.md"
+requires-python = ">=3.12"
+license = { text = "Apache-2.0" }
+dependencies = [
+  "fastmcp==3.4.5",
+  "httpx==0.28.1",
+]
+
+[project.optional-dependencies]
+dev = [
+  "pytest==8.4.2",
+  "pytest-asyncio==1.4.0",
+  "respx==0.23.1",
+  "ruff==0.14.4",
+]
+
+[project.scripts]
+jev-mcp = "jev_mcp.server:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/jev_mcp"]
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+testpaths = ["tests"]
+pythonpath = ["src", "tests"]
+addopts = "-q --strict-markers --strict-config"
+
+[tool.ruff]
+line-length = 100
+target-version = "py312"
+src = ["src", "tests"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B", "SIM", "RUF"]
