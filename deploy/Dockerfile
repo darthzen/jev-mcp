@@ -33,8 +33,8 @@ ENV VIRTUAL_ENV=/opt/venv \
     PATH="/opt/venv/bin:$PATH" \
     PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
-    JEV_MCP_HOST=0.0.0.0 \
-    JEV_MCP_PORT=8080
+    JEV_BIND_HOST=0.0.0.0 \
+    JEV_BIND_PORT=8080
 
 COPY --from=builder /opt/venv /opt/venv
 

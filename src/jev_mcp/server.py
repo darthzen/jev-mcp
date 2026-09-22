@@ -12,8 +12,10 @@ Configuration (environment):
                                             credential.
   JEV_API_URL       default https://api.typesafe.ai/v1/systemone
   JEV_MODEL         default jev-latest
-  JEV_MCP_HOST      default 0.0.0.0
-  JEV_MCP_PORT      default 8080
+  JEV_BIND_HOST     default 0.0.0.0
+  JEV_BIND_PORT     default 8080  (not JEV_MCP_PORT: a Service named
+                                   jev-mcp makes Kubernetes inject that name
+                                   as tcp://ip:port)
   JEV_MCP_TIMEOUT   seconds per TypeSafe call, default 60
 """
 
@@ -127,8 +129,8 @@ def main() -> None:
         stream=sys.stderr,
     )
     _api_key()  # fail fast at startup, before anything is listening
-    host = os.environ.get("JEV_MCP_HOST", "0.0.0.0")
-    port = int(os.environ.get("JEV_MCP_PORT", "8080"))
+    host = os.environ.get("JEV_BIND_HOST", "0.0.0.0")
+    port = int(os.environ.get("JEV_BIND_PORT", "8080"))
     path = mcp_path()
     shown = path if path == "/mcp" else "/<secret>/mcp"
     log.info("jev-mcp %s serving on %s:%s path=%s api=%s", __version__, host, port, shown, API_URL)

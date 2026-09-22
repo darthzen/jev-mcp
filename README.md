@@ -16,7 +16,7 @@ results move between them unchanged.
 | `JEV_MCP_PATH_SECRET` / `..._FILE` | random path segment; endpoint becomes `/<secret>/mcp` | none → `/mcp` with a warning |
 | `JEV_API_URL` | TypeSafe endpoint | `https://api.typesafe.ai/v1/systemone` |
 | `JEV_MODEL` | default model | `jev-latest` |
-| `JEV_MCP_HOST` / `JEV_MCP_PORT` | bind address | `0.0.0.0` / `8080` |
+| `JEV_BIND_HOST` / `JEV_BIND_PORT` | bind address (not `JEV_MCP_PORT`: Kubernetes injects that name for a Service called jev-mcp) | `0.0.0.0` / `8080` |
 | `JEV_MCP_TIMEOUT` | seconds per TypeSafe call | `60` |
 
 `GET /healthz` returns `ok` for probes. Any path other than the MCP path and
@@ -39,7 +39,7 @@ Built in-cluster with the `lab-image-build` skill (kaniko → Harbor), base
 `registry.suse.com/bci/python:3.13`, runs as uid 10001:
 
     ~/.claude/skills/lab-image-build/scripts/kaniko-build.sh \
-      --repo darthzen/jev-mcp --image jev-mcp --tag 0.1.0
+      --repo darthzen/jev-mcp --image jev-mcp --tag 0.1.1
 
 Deployment lives in `lab-fleet/09-mcp/jev/` (Deployment, Service, Ingress on
 `jev-mcp.ash4d.com`, exposed through the Cloudflare tunnel).
