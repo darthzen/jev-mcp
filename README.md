@@ -39,7 +39,7 @@ Built in-cluster with the `lab-image-build` skill (kaniko → Harbor), base
 `registry.suse.com/bci/python:3.13`, runs as uid 10001:
 
     ~/.claude/skills/lab-image-build/scripts/kaniko-build.sh \
-      --repo darthzen/jev-mcp --image jev-mcp --tag 0.1.1
+      --repo darthzen/jev-mcp --image jev-mcp --tag 0.1.2
 
 Deployment lives in `lab-fleet/09-mcp/jev/` (Deployment, Service, Ingress on
 `jev-mcp.ash4d.com`, exposed through the Cloudflare tunnel).
